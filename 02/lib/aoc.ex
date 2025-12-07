@@ -19,13 +19,11 @@ defmodule Aoc do
 
   def part1(input) do
     input
-    |> String.trim()
-    |> String.split(",")
+    |> String.split(",", trim: true)
     |> Enum.flat_map(fn range_str ->
       [start_str, end_str] = String.split(range_str, "-")
-      start_num = String.to_integer(start_str)
-      end_num = String.to_integer(end_str)
-      find_invalid_ids(start_num, end_num)
+      |> Enum.map(&String.to_integer/1)
+      find_invalid_ids(start_str, end_str)
     end)
     |> Enum.sum()
   end
